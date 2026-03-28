@@ -45,154 +45,146 @@ public class Principal extends javax.swing.JFrame {
         jPanel1.setLayout(null);
         lbl_base.setVisible(false);
         jMenu1.add(menu_guardar_proyecto);
-        
 
     }
 
+    private void popupClase(JLabel clase) {
+        JPopupMenu menu = new JPopupMenu();
 
+        JMenuItem atributo = new JMenuItem("Agregar atributo");
+        JMenuItem metodo = new JMenuItem("Agregar metodo");
+        JMenuItem herencia = new JMenuItem("Herencia");
 
+        atributo.addActionListener(e -> {
+            String a = JOptionPane.showInputDialog("Ej: int edad");
+            if (a != null && !a.trim().isEmpty()) {
+                clase.setText(clase.getText().replace("</html>", a + "<br></html>"));
+            }
+        });
 
+        metodo.addActionListener(e -> {
+            String m = JOptionPane.showInputDialog("Ej: void saludar()");
+            if (m != null && !m.trim().isEmpty()) {
+                clase.setText(clase.getText().replace("</html>", m + "<br></html>"));
+            }
+        });
 
+        herencia.addActionListener(e -> {
+            String padre = JOptionPane.showInputDialog("Clase padre:");
+            if (padre != null && !padre.trim().isEmpty()) {
+                String texto = clase.getText();
+                texto = texto.replace("<b>", "<b>" + padre + " <- ");
+                clase.setText(texto);
+            }
+        });
 
-private void popupClase(JLabel clase) {
-    JPopupMenu menu = new JPopupMenu();
+        menu.add(atributo);
+        menu.add(metodo);
+        menu.add(herencia);
 
-    JMenuItem atributo = new JMenuItem("Agregar atributo");
-    JMenuItem metodo = new JMenuItem("Agregar metodo");
-    JMenuItem herencia = new JMenuItem("Herencia");
+        clase.setComponentPopupMenu(menu);
+    }
 
-    atributo.addActionListener(e -> {
-        String a = JOptionPane.showInputDialog("Ej: int edad");
-        if (a != null && !a.trim().isEmpty()) {
-            clase.setText(clase.getText().replace("</html>", a + "<br></html>"));
-        }
-    });
-
-    metodo.addActionListener(e -> {
-        String m = JOptionPane.showInputDialog("Ej: void saludar()");
-        if (m != null && !m.trim().isEmpty()) {
-            clase.setText(clase.getText().replace("</html>", m + "<br></html>"));
-        }
-    });
-
-    herencia.addActionListener(e -> {
-        String padre = JOptionPane.showInputDialog("Clase padre:");
-        if (padre != null && !padre.trim().isEmpty()) {
-            String texto = clase.getText();
-            texto = texto.replace("<b>", "<b>" + padre + " <- ");
-            clase.setText(texto);
-        }
-    });
-
-    menu.add(atributo);
-    menu.add(metodo);
-    menu.add(herencia);
-
-    clase.setComponentPopupMenu(menu);
-}
     private void popupFigura(JLabel figura) {
-  JPopupMenu menu = new JPopupMenu();
+        JPopupMenu menu = new JPopupMenu();
 
-    JMenuItem editar = new JMenuItem("Editar texto");
-    JMenuItem colorFondo = new JMenuItem("Color fondo");
-    JMenuItem colorLetra = new JMenuItem("Color letra");
-    JMenuItem tamano = new JMenuItem("Tamano letra");
-    JMenuItem estilo = new JMenuItem("Estilo letra");
-    JMenuItem fuente = new JMenuItem("Tipo fuente");
-    JMenuItem copiar = new JMenuItem("Copiar");
-    JMenuItem eliminar = new JMenuItem("Eliminar");
+        JMenuItem editar = new JMenuItem("Editar texto");
+        JMenuItem colorFondo = new JMenuItem("Color fondo");
+        JMenuItem colorLetra = new JMenuItem("Color letra");
+        JMenuItem tamano = new JMenuItem("Tamano letra");
+        JMenuItem estilo = new JMenuItem("Estilo letra");
+        JMenuItem fuente = new JMenuItem("Tipo fuente");
+        JMenuItem copiar = new JMenuItem("Copiar");
+        JMenuItem eliminar = new JMenuItem("Eliminar");
 
-    editar.addActionListener(e -> {
-        String nuevo = JOptionPane.showInputDialog("Nuevo texto:");
-        if (nuevo != null && !nuevo.trim().isEmpty()) {
-            figura.setText(nuevo);
-        }
-    });
-
-    colorFondo.addActionListener(e -> {
-        String color = JOptionPane.showInputDialog("rojo, azul, verde, amarillo, blanco");
-        if (color != null) {
-            if (color.equalsIgnoreCase("rojo")) {
-                figura.setBackground(Color.RED);
-            } else if (color.equalsIgnoreCase("azul")) {
-                figura.setBackground(Color.BLUE);
-            } else if (color.equalsIgnoreCase("verde")) {
-                figura.setBackground(Color.GREEN);
-            } else if (color.equalsIgnoreCase("amarillo")) {
-                figura.setBackground(Color.YELLOW);
-            } else if (color.equalsIgnoreCase("blanco")) {
-                figura.setBackground(Color.WHITE);
+        editar.addActionListener(e -> {
+            String nuevo = JOptionPane.showInputDialog("Nuevo texto:");
+            if (nuevo != null && !nuevo.trim().isEmpty()) {
+                figura.setText(nuevo);
             }
-        }
-    });
+        });
 
-    colorLetra.addActionListener(e -> {
-        String color = JOptionPane.showInputDialog("negro, rojo, azul, verde");
-        if (color != null) {
-            if (color.equalsIgnoreCase("negro")) {
-                figura.setForeground(Color.BLACK);
-            } else if (color.equalsIgnoreCase("rojo")) {
-                figura.setForeground(Color.RED);
-            } else if (color.equalsIgnoreCase("azul")) {
-                figura.setForeground(Color.BLUE);
-            } else if (color.equalsIgnoreCase("verde")) {
-                figura.setForeground(Color.GREEN);
+        colorFondo.addActionListener(e -> {
+            String color = JOptionPane.showInputDialog("rojo, azul, verde, amarillo, blanco");
+            if (color != null) {
+                if (color.equalsIgnoreCase("rojo")) {
+                    figura.setBackground(Color.RED);
+                } else if (color.equalsIgnoreCase("azul")) {
+                    figura.setBackground(Color.BLUE);
+                } else if (color.equalsIgnoreCase("verde")) {
+                    figura.setBackground(Color.GREEN);
+                } else if (color.equalsIgnoreCase("amarillo")) {
+                    figura.setBackground(Color.YELLOW);
+                } else if (color.equalsIgnoreCase("blanco")) {
+                    figura.setBackground(Color.WHITE);
+                }
             }
-        }
-    });
+        });
 
-    tamano.addActionListener(e -> {
-        String t = JOptionPane.showInputDialog("Tamano:");
-        if (t != null && !t.trim().isEmpty()) {
-            figura.setFont(new java.awt.Font("Arial", figura.getFont().getStyle(), Integer.parseInt(t)));
-        }
-    });
-
-    estilo.addActionListener(e -> {
-        String op = JOptionPane.showInputDialog("normal, negrita, italica");
-        if (op != null) {
-            int estiloFuente = java.awt.Font.PLAIN;
-            if (op.equalsIgnoreCase("negrita")) {
-                estiloFuente = java.awt.Font.BOLD;
-            } else if (op.equalsIgnoreCase("italica")) {
-                estiloFuente = java.awt.Font.ITALIC;
+        colorLetra.addActionListener(e -> {
+            String color = JOptionPane.showInputDialog("negro, rojo, azul, verde");
+            if (color != null) {
+                if (color.equalsIgnoreCase("negro")) {
+                    figura.setForeground(Color.BLACK);
+                } else if (color.equalsIgnoreCase("rojo")) {
+                    figura.setForeground(Color.RED);
+                } else if (color.equalsIgnoreCase("azul")) {
+                    figura.setForeground(Color.BLUE);
+                } else if (color.equalsIgnoreCase("verde")) {
+                    figura.setForeground(Color.GREEN);
+                }
             }
-            figura.setFont(new java.awt.Font("Arial", estiloFuente, figura.getFont().getSize()));
-        }
-    });
+        });
 
-    fuente.addActionListener(e -> {
-        String f = JOptionPane.showInputDialog("Arial, Serif, Monospaced");
-        if (f != null) {
-            figura.setFont(new java.awt.Font(f, figura.getFont().getStyle(), figura.getFont().getSize()));
-        }
-    });
+        tamano.addActionListener(e -> {
+            String t = JOptionPane.showInputDialog("Tamano:");
+            if (t != null && !t.trim().isEmpty()) {
+                figura.setFont(new java.awt.Font("Arial", figura.getFont().getStyle(), Integer.parseInt(t)));
+            }
+        });
 
-    copiar.addActionListener(e -> {
-        figuraCopiada = figura;
-        textoCopiado = figura.getText();
-    });
+        estilo.addActionListener(e -> {
+            String op = JOptionPane.showInputDialog("normal, negrita, italica");
+            if (op != null) {
+                int estiloFuente = java.awt.Font.PLAIN;
+                if (op.equalsIgnoreCase("negrita")) {
+                    estiloFuente = java.awt.Font.BOLD;
+                } else if (op.equalsIgnoreCase("italica")) {
+                    estiloFuente = java.awt.Font.ITALIC;
+                }
+                figura.setFont(new java.awt.Font("Arial", estiloFuente, figura.getFont().getSize()));
+            }
+        });
 
-    eliminar.addActionListener(e -> {
-        jPanel1.remove(figura);
-        jPanel1.repaint();
-    });
+        fuente.addActionListener(e -> {
+            String f = JOptionPane.showInputDialog("Arial, Serif, Monospaced");
+            if (f != null) {
+                figura.setFont(new java.awt.Font(f, figura.getFont().getStyle(), figura.getFont().getSize()));
+            }
+        });
 
-    menu.add(editar);
-    menu.add(colorFondo);
-    menu.add(colorLetra);
-    menu.add(tamano);
-    menu.add(estilo);
-    menu.add(fuente);
-    menu.add(copiar);
-    menu.add(eliminar);
+        copiar.addActionListener(e -> {
+            figuraCopiada = figura;
+            textoCopiado = figura.getText();
+        });
 
-    figura.setComponentPopupMenu(menu);
-    
+        eliminar.addActionListener(e -> {
+            jPanel1.remove(figura);
+            jPanel1.repaint();
+        });
+
+        menu.add(editar);
+        menu.add(colorFondo);
+        menu.add(colorLetra);
+        menu.add(tamano);
+        menu.add(estilo);
+        menu.add(fuente);
+        menu.add(copiar);
+        menu.add(eliminar);
+
+        figura.setComponentPopupMenu(menu);
+
     }
-
-
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -593,33 +585,33 @@ private void popupClase(JLabel clase) {
     }// </editor-fold>//GEN-END:initComponents
 
     private void pn_izquierdoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pn_izquierdoMouseClicked
-   if (evt.getButton() != java.awt.event.MouseEvent.BUTTON1) {
-        return;
-    }
+        if (evt.getButton() != java.awt.event.MouseEvent.BUTTON1) {
+            return;
+        }
 
-    JLabel figura = new JLabel("Fin", JLabel.CENTER);
-    figura.setBounds(50, yInicial, 120, 50);
+        JLabel figura = new JLabel("Fin", JLabel.CENTER);
+        figura.setBounds(50, yInicial, 120, 50);
 
-    figura.setOpaque(true);
-    figura.setBackground(lbl_base.getBackground());
-    figura.setBorder(lbl_base.getBorder());
+        figura.setOpaque(true);
+        figura.setBackground(lbl_base.getBackground());
+        figura.setBorder(lbl_base.getBorder());
 
-    jPanel1.add(figura);
-    jPanel1.repaint();
+        jPanel1.add(figura);
+        jPanel1.repaint();
 
-    yInicial += 60;
+        yInicial += 60;
 
-    figura.addMouseListener(new java.awt.event.MouseAdapter() {
-        @Override
-        public void mouseClicked(java.awt.event.MouseEvent evt) {
-            if (evt.getClickCount() == 2) {
-                String nuevo = javax.swing.JOptionPane.showInputDialog("Nuevo texto:");
-                if (nuevo != null && !nuevo.trim().isEmpty()) {
-                    figura.setText(nuevo);
+        figura.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                if (evt.getClickCount() == 2) {
+                    String nuevo = javax.swing.JOptionPane.showInputDialog("Nuevo texto:");
+                    if (nuevo != null && !nuevo.trim().isEmpty()) {
+                        figura.setText(nuevo);
+                    }
                 }
             }
-        }
-    });
+        });
 
     }//GEN-LAST:event_pn_izquierdoMouseClicked
 
@@ -634,703 +626,712 @@ private void popupClase(JLabel clase) {
 
     private void lbl_inicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_inicioMouseClicked
         // TODO add your handling code here:
-     JLabel figura = new JLabel();
-    figura.setText("Inicio");
-    figura.setBounds(50, yInicial, 120, 50);
-    figura.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-    figura.setOpaque(true);
-    figura.setBackground(lbl_base.getBackground());
-    figura.setBorder(lbl_base.getBorder());
+        JLabel figura = new JLabel();
+        figura.setText("Inicio");
+        figura.setBounds(50, yInicial, 120, 50);
+        figura.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        figura.setOpaque(true);
+        figura.setBackground(lbl_base.getBackground());
+        figura.setBorder(lbl_base.getBorder());
 
-    figura.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-        @Override
-        public void mouseDragged(java.awt.event.MouseEvent evt) {
-            figura.setLocation(
-                figura.getX() + evt.getX(),
-                figura.getY() + evt.getY()
-            );
-        }
-    });
+        figura.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            @Override
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                figura.setLocation(
+                        figura.getX() + evt.getX(),
+                        figura.getY() + evt.getY()
+                );
+            }
+        });
 
-    figura.addMouseListener(new java.awt.event.MouseAdapter() {
-        @Override
-        public void mouseClicked(java.awt.event.MouseEvent evt) {
-            if (evt.getClickCount() == 2) {
-                String nuevo = javax.swing.JOptionPane.showInputDialog("Nuevo texto:");
-                if (nuevo != null && !nuevo.trim().isEmpty()) {
-                    figura.setText(nuevo);
+        figura.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                if (evt.getClickCount() == 2) {
+                    String nuevo = javax.swing.JOptionPane.showInputDialog("Nuevo texto:");
+                    if (nuevo != null && !nuevo.trim().isEmpty()) {
+                        figura.setText(nuevo);
+                    }
                 }
             }
-        }
-    });
+        });
 
-    popupFigura(figura);
+        popupFigura(figura);
 
-    jPanel1.add(figura);
-    jPanel1.repaint();
+        jPanel1.add(figura);
+        jPanel1.repaint();
 
-    figuras.add(new Figuras("Inicio", 50, yInicial, "Inicio"));
-    yInicial += 60;
+        figuras.add(new Figuras("Inicio", 50, yInicial, "Inicio"));
+        yInicial += 60;
     }//GEN-LAST:event_lbl_inicioMouseClicked
 
     private void lbl_ifMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_ifMouseClicked
         // TODO add your handling code here:
-    JLabel figura = new JLabel();
-    figura.setText("If");
-    figura.setBounds(50, yInicial, 120, 50);
-    figura.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-    figura.setOpaque(true);
-    figura.setBackground(lbl_base.getBackground());
-    figura.setBorder(lbl_base.getBorder());
+        JLabel figura = new JLabel();
+        figura.setText("If");
+        figura.setBounds(50, yInicial, 120, 50);
+        figura.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        figura.setOpaque(true);
+        figura.setBackground(lbl_base.getBackground());
+        figura.setBorder(lbl_base.getBorder());
 
-    figura.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-        @Override
-        public void mouseDragged(java.awt.event.MouseEvent evt) {
-            figura.setLocation(
-                figura.getX() + evt.getX(),
-                figura.getY() + evt.getY()
-            );
-        }
-    });
+        figura.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            @Override
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                figura.setLocation(
+                        figura.getX() + evt.getX(),
+                        figura.getY() + evt.getY()
+                );
+            }
+        });
 
-    popupFigura(figura);
+        popupFigura(figura);
 
-    jPanel1.add(figura);
-    jPanel1.repaint();
+        jPanel1.add(figura);
+        jPanel1.repaint();
 
-    figuras.add(new Figuras("If", 50, yInicial, "If"));
-    yInicial += 60;
+        figuras.add(new Figuras("If", 50, yInicial, "If"));
+        yInicial += 60;
     }//GEN-LAST:event_lbl_ifMouseClicked
 
     private void lbl_forMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_forMouseClicked
         // TODO add your handling code here:
-      JLabel figura = new JLabel();
-    figura.setText("For");
-    figura.setBounds(50, yInicial, 120, 50);
-    figura.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-    figura.setOpaque(true);
-    figura.setBackground(lbl_base.getBackground());
-    figura.setBorder(lbl_base.getBorder());
+        JLabel figura = new JLabel();
+        figura.setText("For");
+        figura.setBounds(50, yInicial, 120, 50);
+        figura.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        figura.setOpaque(true);
+        figura.setBackground(lbl_base.getBackground());
+        figura.setBorder(lbl_base.getBorder());
 
-    figura.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-        @Override
-        public void mouseDragged(java.awt.event.MouseEvent evt) {
-            figura.setLocation(
-                figura.getX() + evt.getX(),
-                figura.getY() + evt.getY()
-            );
-        }
-    });
+        figura.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            @Override
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                figura.setLocation(
+                        figura.getX() + evt.getX(),
+                        figura.getY() + evt.getY()
+                );
+            }
+        });
 
-    figura.addMouseListener(new java.awt.event.MouseAdapter() {
-        @Override
-        public void mouseClicked(java.awt.event.MouseEvent evt) {
-            if (evt.getClickCount() == 2) {
-                String nuevo = javax.swing.JOptionPane.showInputDialog("Nuevo for:");
-                if (nuevo != null && !nuevo.trim().isEmpty()) {
-                    figura.setText(nuevo);
+        figura.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                if (evt.getClickCount() == 2) {
+                    String nuevo = javax.swing.JOptionPane.showInputDialog("Nuevo for:");
+                    if (nuevo != null && !nuevo.trim().isEmpty()) {
+                        figura.setText(nuevo);
+                    }
                 }
             }
-        }
-    });
+        });
 
-    popupFigura(figura);
+        popupFigura(figura);
 
-    jPanel1.add(figura);
-    jPanel1.repaint();
+        jPanel1.add(figura);
+        jPanel1.repaint();
 
-    figuras.add(new Figuras("For", 50, yInicial, "For"));
-    yInicial += 60;
+        figuras.add(new Figuras("For", 50, yInicial, "For"));
+        yInicial += 60;
 
     }//GEN-LAST:event_lbl_forMouseClicked
 
     private void lbl_whileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_whileMouseClicked
         // TODO add your handling code here:
         JLabel figura = new JLabel();
-    figura.setText("While");
-    figura.setBounds(50, yInicial, 120, 50);
-    figura.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-    figura.setOpaque(true);
-    figura.setBackground(lbl_base.getBackground());
-    figura.setBorder(lbl_base.getBorder());
+        figura.setText("While");
+        figura.setBounds(50, yInicial, 120, 50);
+        figura.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        figura.setOpaque(true);
+        figura.setBackground(lbl_base.getBackground());
+        figura.setBorder(lbl_base.getBorder());
 
-    figura.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-        @Override
-        public void mouseDragged(java.awt.event.MouseEvent evt) {
-            figura.setLocation(
-                figura.getX() + evt.getX(),
-                figura.getY() + evt.getY()
-            );
-        }
-    });
+        figura.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            @Override
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                figura.setLocation(
+                        figura.getX() + evt.getX(),
+                        figura.getY() + evt.getY()
+                );
+            }
+        });
 
-    figura.addMouseListener(new java.awt.event.MouseAdapter() {
-        @Override
-        public void mouseClicked(java.awt.event.MouseEvent evt) {
-            if (evt.getClickCount() == 2) {
-                String nuevo = javax.swing.JOptionPane.showInputDialog("Nuevo while:");
-                if (nuevo != null && !nuevo.trim().isEmpty()) {
-                    figura.setText(nuevo);
+        figura.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                if (evt.getClickCount() == 2) {
+                    String nuevo = javax.swing.JOptionPane.showInputDialog("Nuevo while:");
+                    if (nuevo != null && !nuevo.trim().isEmpty()) {
+                        figura.setText(nuevo);
+                    }
                 }
             }
-        }
-    });
+        });
 
-    popupFigura(figura);
+        popupFigura(figura);
 
-    jPanel1.add(figura);
-    jPanel1.repaint();
+        jPanel1.add(figura);
+        jPanel1.repaint();
 
-    figuras.add(new Figuras("While", 50, yInicial, "While"));
-    yInicial += 60;
+        figuras.add(new Figuras("While", 50, yInicial, "While"));
+        yInicial += 60;
 
     }//GEN-LAST:event_lbl_whileMouseClicked
 
     private void lbl_operacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_operacionMouseClicked
         // TODO add your handling code here:
-       String var1 = JOptionPane.showInputDialog("Primera variable:");
-    String operador = JOptionPane.showInputDialog("Operador (+,-,*,/):");
-    String var2 = JOptionPane.showInputDialog("Segunda variable:");
-    String resultado = JOptionPane.showInputDialog("Variable donde guardar:");
+        String var1 = JOptionPane.showInputDialog("Primera variable:");
+        String operador = JOptionPane.showInputDialog("Operador (+,-,*,/):");
+        String var2 = JOptionPane.showInputDialog("Segunda variable:");
+        String resultado = JOptionPane.showInputDialog("Variable donde guardar:");
 
-    if (var1 == null || operador == null || var2 == null || resultado == null) {
-        return;
-    }
-
-    if (var1.trim().isEmpty() || operador.trim().isEmpty() || var2.trim().isEmpty() || resultado.trim().isEmpty()) {
-        JOptionPane.showMessageDialog(this, "No deje espacios vacios");
-        return;
-    }
-
-    if (!operador.equals("+") && !operador.equals("-") && !operador.equals("*") && !operador.equals("/")) {
-        JOptionPane.showMessageDialog(this, "Operador invalido");
-        return;
-    }
-
-    String operacion = resultado + " = " + var1 + " " + operador + " " + var2;
-
-    JLabel figura = new JLabel(operacion, JLabel.CENTER);
-    figura.setBounds(50, yInicial, 160, 50);
-    figura.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-    figura.setOpaque(true);
-    figura.setBackground(lbl_base.getBackground());
-    figura.setBorder(lbl_base.getBorder());
-
-    figura.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-        @Override
-        public void mouseDragged(java.awt.event.MouseEvent evt) {
-            figura.setLocation(
-                figura.getX() + evt.getX(),
-                figura.getY() + evt.getY()
-            );
+        if (var1 == null || operador == null || var2 == null || resultado == null) {
+            return;
         }
-    });
 
-    popupFigura(figura);
+        if (var1.trim().isEmpty() || operador.trim().isEmpty() || var2.trim().isEmpty() || resultado.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No deje espacios vacios");
+            return;
+        }
 
-    jPanel1.add(figura);
-    jPanel1.repaint();
+        if (!operador.equals("+") && !operador.equals("-") && !operador.equals("*") && !operador.equals("/")) {
+            JOptionPane.showMessageDialog(this, "Operador invalido");
+            return;
+        }
 
-    figuras.add(new Figuras("Operacion", figura.getX(), figura.getY(), operacion));
-    yInicial += 60;
+        String operacion = resultado + " = " + var1 + " " + operador + " " + var2;
+
+        JLabel figura = new JLabel(operacion, JLabel.CENTER);
+        figura.setBounds(50, yInicial, 160, 50);
+        figura.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        figura.setOpaque(true);
+        figura.setBackground(lbl_base.getBackground());
+        figura.setBorder(lbl_base.getBorder());
+
+        figura.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            @Override
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                figura.setLocation(
+                        figura.getX() + evt.getX(),
+                        figura.getY() + evt.getY()
+                );
+            }
+        });
+
+        popupFigura(figura);
+
+        jPanel1.add(figura);
+        jPanel1.repaint();
+
+        figuras.add(new Figuras("Operacion", figura.getX(), figura.getY(), operacion));
+        yInicial += 60;
 
     }//GEN-LAST:event_lbl_operacionMouseClicked
 
     private void lbl_soutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_soutMouseClicked
         // TODO add your handling code here:
-                JLabel figura = new JLabel();
-    figura.setText("sout");
-    figura.setBounds(50, yInicial, 120, 50);
-    figura.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-    figura.setOpaque(true);
-    figura.setBackground(lbl_base.getBackground());
-    figura.setBorder(lbl_base.getBorder());
+        JLabel figura = new JLabel();
+        figura.setText("sout");
+        figura.setBounds(50, yInicial, 120, 50);
+        figura.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        figura.setOpaque(true);
+        figura.setBackground(lbl_base.getBackground());
+        figura.setBorder(lbl_base.getBorder());
 
-    figura.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-        @Override
-        public void mouseDragged(java.awt.event.MouseEvent evt) {
-            figura.setLocation(
-                figura.getX() + evt.getX(),
-                figura.getY() + evt.getY()
-            );
-        }
-    });
+        figura.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            @Override
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                figura.setLocation(
+                        figura.getX() + evt.getX(),
+                        figura.getY() + evt.getY()
+                );
+            }
+        });
 
-    figura.addMouseListener(new java.awt.event.MouseAdapter() {
-        @Override
-        public void mouseClicked(java.awt.event.MouseEvent evt) {
-            if (evt.getClickCount() == 2) {
-                String nuevo = javax.swing.JOptionPane.showInputDialog("Nuevo sout:");
-                if (nuevo != null && !nuevo.trim().isEmpty()) {
-                    figura.setText(nuevo);
+        figura.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                if (evt.getClickCount() == 2) {
+                    String nuevo = javax.swing.JOptionPane.showInputDialog("Nuevo sout:");
+                    if (nuevo != null && !nuevo.trim().isEmpty()) {
+                        figura.setText(nuevo);
+                    }
                 }
             }
-        }
-    });
+        });
 
-    popupFigura(figura);
+        popupFigura(figura);
 
-    jPanel1.add(figura);
-    jPanel1.repaint();
+        jPanel1.add(figura);
+        jPanel1.repaint();
 
-    figuras.add(new Figuras("sout", 50, yInicial, "sout"));
-    yInicial += 60;
+        figuras.add(new Figuras("sout", 50, yInicial, "sout"));
+        yInicial += 60;
     }//GEN-LAST:event_lbl_soutMouseClicked
 
     private void lb_finMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lb_finMouseClicked
         // TODO add your handling code here:
-            JLabel figura = new JLabel("Fin", JLabel.CENTER);
-    figura.setBounds(50, yInicial, 120, 50);
+        JLabel figura = new JLabel("Fin", JLabel.CENTER);
+        figura.setBounds(50, yInicial, 120, 50);
 
-    figura.setOpaque(true);
-    figura.setBackground(lbl_base.getBackground());
-    figura.setBorder(lbl_base.getBorder());
+        figura.setOpaque(true);
+        figura.setBackground(lbl_base.getBackground());
+        figura.setBorder(lbl_base.getBorder());
 
-    figura.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-        @Override
-        public void mouseDragged(java.awt.event.MouseEvent evt) {
-            figura.setLocation(
-                figura.getX() + evt.getX(),
-                figura.getY() + evt.getY()
-            );
-        }
-    });
+        figura.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            @Override
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                figura.setLocation(
+                        figura.getX() + evt.getX(),
+                        figura.getY() + evt.getY()
+                );
+            }
+        });
 
-    popupFigura(figura);
+        popupFigura(figura);
 
-    jPanel1.add(figura);
-    jPanel1.repaint();
+        jPanel1.add(figura);
+        jPanel1.repaint();
 
-    figuras.add(new Figuras("Fin", 50, yInicial, "Fin"));
-    yInicial += 60;
+        figuras.add(new Figuras("Fin", 50, yInicial, "Fin"));
+        yInicial += 60;
     }//GEN-LAST:event_lb_finMouseClicked
 
     private void btn_agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarActionPerformed
         // TODO add your handling code here:
 
-    String tipo = JOptionPane.showInputDialog("Ingrese el tipo de variable:");
-    String nombre = JOptionPane.showInputDialog("Ingrese el nombre de la variable:");
+        String tipo = JOptionPane.showInputDialog("Ingrese el tipo de variable:");
+        String nombre = JOptionPane.showInputDialog("Ingrese el nombre de la variable:");
 
-    if (tipo == null || nombre == null || tipo.trim().isEmpty() || nombre.trim().isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Datos vacios");
-        return;
-    }
-
-    // 🔽 VALIDAR REPETIDOS (ahora sí funciona)
-    for (Variable var : variables) {
-        if (var.getNombre().equals(nombre)) {
-            JOptionPane.showMessageDialog(this, "Variable ya existe");
+        if (tipo == null || nombre == null || tipo.trim().isEmpty() || nombre.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Datos vacios");
             return;
         }
-    }
 
-    Variable v = new Variable(tipo, nombre);
-    variables.add(v);
+        // 🔽 VALIDAR REPETIDOS (ahora sí funciona)
+        for (Variable var : variables) {
+            if (var.getNombre().equals(nombre)) {
+                JOptionPane.showMessageDialog(this, "Variable ya existe");
+                return;
+            }
+        }
 
-    txt_variables.append(v.toString() + "\n");
+        Variable v = new Variable(tipo, nombre);
+        variables.add(v);
+
+        txt_variables.append(v.toString() + "\n");
 
     }//GEN-LAST:event_btn_agregarActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
 
-       String codigo = "";
+        String codigo = "";
 
-    codigo += "public class Prueba {\n";
-    codigo += "    public static void main(String[] args) {\n";
+        codigo += "public class Prueba {\n";
+        codigo += "    public static void main(String[] args) {\n";
 
-    for (java.awt.Component c : jPanel1.getComponents()) {
-        if (c instanceof JLabel) {
-            JLabel figura = (JLabel) c;
-            String texto = figura.getText().trim();
-
-            if (texto.equalsIgnoreCase("Inicio") || texto.equalsIgnoreCase("Fin")) {
-                
-            } else if (texto.startsWith("sout")) {
-                String contenido = texto.replaceFirst("sout", "").trim();
-                codigo += "        System.out.println(" + contenido + ");\n";
-
-            } else if (texto.startsWith("If")) {
-                String condicion = texto.replaceFirst("If", "").trim();
-                codigo += "        if (" + condicion + ") {\n";
-                codigo += "        }\n";
-
-            } else if (texto.startsWith("While")) {
-                String condicion = texto.replaceFirst("While", "").trim();
-                codigo += "        while (" + condicion + ") {\n";
-                codigo += "        }\n";
-
-            } else if (texto.startsWith("For")) {
-                String condicion = texto.replaceFirst("For", "").trim();
-                codigo += "        for (" + condicion + ") {\n";
-                codigo += "        }\n";
-
-            } else {
-                codigo += "        " + texto + ";\n";
-            }
-        }
-    }
-
-    codigo += "    }\n";
-    codigo += "}\n";
-    for (java.awt.Component c : jPanel1.getComponents()) {
-    if (c instanceof JLabel) {
-        JLabel lbl = (JLabel) c;
-
-        String texto = lbl.getText();
-
-        if (texto.contains("<html>")) {
-
-            String limpio = texto.replaceAll("<[^>]*>", "");
-            String[] lineas = limpio.split("\n");
-
-            if (lineas.length > 0) {
-
-                String nombreClase = lineas[0].trim();
-
-                if (nombreClase.contains("<-")) {
-                    String[] partes = nombreClase.split("<-");
-                    nombreClase = partes[1].trim();
+        for (java.awt.Component c : jPanel1.getComponents()) {
+            if (c instanceof JLabel) {
+                JLabel figura = (JLabel) c;
+                String texto = figura.getText().trim();
+                if (texto.contains("<html>")) {
+                    continue;
                 }
 
-                codigo += "\nclass " + nombreClase + " {\n";
+                if (texto.equalsIgnoreCase("Inicio") || texto.equalsIgnoreCase("Fin")) {
 
-                for (int i = 1; i < lineas.length; i++) {
-                    String linea = lineas[i].trim();
+                } else if (texto.startsWith("sout")) {
+                    String contenido = texto.replaceFirst("sout", "").trim();
+                    codigo += "        System.out.println(" + contenido + ");\n";
 
-                    if (linea.isEmpty() || linea.equals("-----")) continue;
+                } else if (texto.startsWith("If")) {
+                    String condicion = texto.replaceFirst("If", "").trim();
+                    codigo += "        if (" + condicion + ") {\n";
+                    codigo += "        }\n";
 
-                    if (linea.contains("(")) {
-                        codigo += "    " + linea + " {\n\n    }\n";
-                    } else {
-                        codigo += "    " + linea + ";\n";
+                } else if (texto.startsWith("While")) {
+                    String condicion = texto.replaceFirst("While", "").trim();
+                    codigo += "        while (" + condicion + ") {\n";
+                    codigo += "        }\n";
+
+                } else if (texto.startsWith("For")) {
+                    String condicion = texto.replaceFirst("For", "").trim();
+                    codigo += "        for (" + condicion + ") {\n";
+                    codigo += "        }\n";
+
+                } else {
+                    codigo += "        " + texto + ";\n";
+                }
+            }
+        }
+
+        codigo += "    }\n";
+        codigo += "}\n";
+        for (java.awt.Component c : jPanel1.getComponents()) {
+            if (c instanceof JLabel) {
+                JLabel lbl = (JLabel) c;
+
+                String texto = lbl.getText();
+
+                if (texto.contains("<html>")) {
+
+                    String limpio = texto.replaceAll("<[^>]*>", "");
+                    String[] lineas = limpio.split("-----");
+                    if (lineas.length > 0) {
+                        String nombreClase = lineas[0].trim();
+                        String padre = "";
+
+                        if (nombreClase.contains("<-")) {
+                            String[] partes = nombreClase.split("<-");
+                            padre = partes[0].trim();
+                            nombreClase = partes[1].trim();
+                        }
+
+                        if (!padre.isEmpty()) {
+                            codigo += "\nclass " + nombreClase + " extends " + padre + " {\n";
+                        } else {
+                            codigo += "\nclass " + nombreClase + " {\n";
+                        }
+
+                        for (int i = 1; i < lineas.length; i++) {
+                            String linea = lineas[i].trim();
+
+                            if (linea.isEmpty() || linea.equals("-----")) {
+                                continue;
+                            }
+
+                            if (linea.contains("(")) {
+                                codigo += "    " + linea + " {\n\n    }\n";
+                            } else {
+                                codigo += "    " + linea + ";\n";
+                            }
+                        }
+
+                        codigo += "}\n";
                     }
                 }
-
-                codigo += "}\n";
             }
         }
-    }
-}
 
-    txt_codigo.setText(codigo);
-    jTabbedPane1.setSelectedIndex(1);
+        txt_codigo.setText(codigo);
+        jTabbedPane1.setSelectedIndex(1);
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void menu_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_guardarActionPerformed
         // TODO add your handling code here:
-         if (txt_codigo.getText().isEmpty()) {
-        JOptionPane.showMessageDialog(this, "No hay codigo para guardar");
-        return;
-    }
-
-    JFileChooser filechooser = new JFileChooser();
-    int resultado = filechooser.showSaveDialog(this);
-
-    if (resultado == JFileChooser.APPROVE_OPTION) {
-        File archivoSeleccionado = filechooser.getSelectedFile();
-
-        try {
-            FileWriter fw = new FileWriter(archivoSeleccionado + ".java");
-            BufferedWriter bw = new BufferedWriter(fw);
-
-            bw.write(txt_codigo.getText());
-
-            bw.close();
-
-            JOptionPane.showMessageDialog(this, "Archivo guardado exitosamente!");
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(this, "Algo salio mal.");
+        if (txt_codigo.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No hay codigo para guardar");
+            return;
         }
-    }
+
+        JFileChooser filechooser = new JFileChooser();
+        int resultado = filechooser.showSaveDialog(this);
+
+        if (resultado == JFileChooser.APPROVE_OPTION) {
+            File archivoSeleccionado = filechooser.getSelectedFile();
+
+            try {
+                FileWriter fw = new FileWriter(archivoSeleccionado + ".java");
+                BufferedWriter bw = new BufferedWriter(fw);
+
+                bw.write(txt_codigo.getText());
+
+                bw.close();
+
+                JOptionPane.showMessageDialog(this, "Archivo guardado exitosamente!");
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(this, "Algo salio mal.");
+            }
+        }
     }//GEN-LAST:event_menu_guardarActionPerformed
 
     private void menu_exportar_codigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_exportar_codigoActionPerformed
         // TODO add your handling code here:
-          if (txt_codigo.getText().isEmpty()) {
-        JOptionPane.showMessageDialog(this, "No hay codigo para exportar");
-        return;
-    }
-
-    JFileChooser filechooser = new JFileChooser();
-    int resultado = filechooser.showSaveDialog(this);
-
-    if (resultado == JFileChooser.APPROVE_OPTION) {
-        File archivo = filechooser.getSelectedFile();
-
-        try {
-            FileWriter fw = new FileWriter(archivo + ".java");
-            BufferedWriter bw = new BufferedWriter(fw);
-
-            bw.write(txt_codigo.getText());
-
-            bw.close();
-
-            JOptionPane.showMessageDialog(this, "Archivo .java guardado");
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(this, "Error al guardar");
+        if (txt_codigo.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No hay codigo para exportar");
+            return;
         }
-    }
+
+        JFileChooser filechooser = new JFileChooser();
+        int resultado = filechooser.showSaveDialog(this);
+
+        if (resultado == JFileChooser.APPROVE_OPTION) {
+            File archivo = filechooser.getSelectedFile();
+
+            try {
+                FileWriter fw = new FileWriter(archivo + ".java");
+                BufferedWriter bw = new BufferedWriter(fw);
+
+                bw.write(txt_codigo.getText());
+
+                bw.close();
+
+                JOptionPane.showMessageDialog(this, "Archivo .java guardado");
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(this, "Error al guardar");
+            }
+        }
     }//GEN-LAST:event_menu_exportar_codigoActionPerformed
 
     private void menu_exportar_pdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_exportar_pdfActionPerformed
         // TODO add your handling code here:
-     if (txt_codigo.getText().isEmpty()) {
-        JOptionPane.showMessageDialog(this, "No hay codigo para exportar");
-        return;
-    }
-
-    JFileChooser fileChooser = new JFileChooser();
-    int opcion = fileChooser.showSaveDialog(this);
-
-    if (opcion == JFileChooser.APPROVE_OPTION) {
-        File archivo = fileChooser.getSelectedFile();
-
-        try {
-            Document documento = new Document();
-            PdfWriter.getInstance(documento, new FileOutputStream(archivo + ".pdf"));
-
-            documento.open();
-            documento.add(new Paragraph(txt_codigo.getText()));
-            documento.close();
-
-            JOptionPane.showMessageDialog(this, "PDF exportado correctamente");
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Error al exportar PDF");
+        if (txt_codigo.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No hay codigo para exportar");
+            return;
         }
-    }
+
+        JFileChooser fileChooser = new JFileChooser();
+        int opcion = fileChooser.showSaveDialog(this);
+
+        if (opcion == JFileChooser.APPROVE_OPTION) {
+            File archivo = fileChooser.getSelectedFile();
+
+            try {
+                Document documento = new Document();
+                PdfWriter.getInstance(documento, new FileOutputStream(archivo + ".pdf"));
+
+                documento.open();
+                documento.add(new Paragraph(txt_codigo.getText()));
+                documento.close();
+
+                JOptionPane.showMessageDialog(this, "PDF exportado correctamente");
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Error al exportar PDF");
+            }
+        }
     }//GEN-LAST:event_menu_exportar_pdfActionPerformed
 
     private void menu_abrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_abrirActionPerformed
         // TODO add your handling code here:
-         JFileChooser fileChooser = new JFileChooser();
-    int opcion = fileChooser.showOpenDialog(this);
+        JFileChooser fileChooser = new JFileChooser();
+        int opcion = fileChooser.showOpenDialog(this);
 
-    if (opcion == JFileChooser.APPROVE_OPTION) {
+        if (opcion == JFileChooser.APPROVE_OPTION) {
 
-        File archivo = fileChooser.getSelectedFile();
+            File archivo = fileChooser.getSelectedFile();
 
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(archivo));
+            try {
+                BufferedReader br = new BufferedReader(new FileReader(archivo));
 
-            String linea;
-            String contenido = "";
+                String linea;
+                String contenido = "";
 
-            while ((linea = br.readLine()) != null) {
-                contenido += linea + "\n";
-                    }
+                while ((linea = br.readLine()) != null) {
+                    contenido += linea + "\n";
+                }
 
-            txt_codigo.setText(contenido);
+                txt_codigo.setText(contenido);
 
-            br.close();
+                br.close();
 
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(this, "Error al abrir archivo");
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(this, "Error al abrir archivo");
+            }
         }
-    }
-        
+
     }//GEN-LAST:event_menu_abrirActionPerformed
 
     private void menu_nuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_nuevoActionPerformed
         // TODO add your handling code here:
         jPanel1.removeAll();
-jPanel1.repaint();
+        jPanel1.repaint();
 
-txt_codigo.setText("");
-txt_variables.setText("");
+        txt_codigo.setText("");
+        txt_variables.setText("");
 
-figuras.clear();
-variables.clear();
+        figuras.clear();
+        variables.clear();
 
-xInicial = 30;
-yInicial = 30;
+        xInicial = 30;
+        yInicial = 30;
 
-JOptionPane.showMessageDialog(this, "Nuevo proyecto creado");
+        JOptionPane.showMessageDialog(this, "Nuevo proyecto creado");
     }//GEN-LAST:event_menu_nuevoActionPerformed
 
     private void menu_guardar_proyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_guardar_proyectoActionPerformed
         // TODO add your handling code here:
-    JFileChooser fileChooser = new JFileChooser();
-    int opcion = fileChooser.showSaveDialog(this);
+        JFileChooser fileChooser = new JFileChooser();
+        int opcion = fileChooser.showSaveDialog(this);
 
-    if (opcion == JFileChooser.APPROVE_OPTION) {
-        File archivo = fileChooser.getSelectedFile();
+        if (opcion == JFileChooser.APPROVE_OPTION) {
+            File archivo = fileChooser.getSelectedFile();
 
-        try {
-            BufferedWriter bw = new BufferedWriter(new FileWriter(archivo + ".txt"));
+            try {
+                BufferedWriter bw = new BufferedWriter(new FileWriter(archivo + ".txt"));
 
-            for (java.awt.Component c : jPanel1.getComponents()) {
-                if (c instanceof JLabel) {
-                    JLabel figura = (JLabel) c;
-                    bw.write(figura.getText() + "," + figura.getX() + "," + figura.getY());
+                for (java.awt.Component c : jPanel1.getComponents()) {
+                    if (c instanceof JLabel) {
+                        JLabel figura = (JLabel) c;
+                        bw.write(figura.getText() + "," + figura.getX() + "," + figura.getY());
+                        bw.newLine();
+                    }
+                }
+
+                bw.write("VARIABLES");
+                bw.newLine();
+
+                for (Variable v : variables) {
+                    bw.write(v.getTipo() + "," + v.getNombre());
                     bw.newLine();
                 }
+
+                bw.close();
+                JOptionPane.showMessageDialog(this, "Proyecto guardado");
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(this, "Error al guardar proyecto");
             }
 
-            bw.write("VARIABLES");
-            bw.newLine();
-
-            for (Variable v : variables) {
-                bw.write(v.getTipo() + "," + v.getNombre());
-                bw.newLine();
-            }
-
-            bw.close();
-            JOptionPane.showMessageDialog(this, "Proyecto guardado");
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(this, "Error al guardar proyecto");
         }
-    
-    }
     }//GEN-LAST:event_menu_guardar_proyectoActionPerformed
 
     private void menu_abrir_proyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_abrir_proyectoActionPerformed
         // TODO add your handling code here:
-            JFileChooser fileChooser = new JFileChooser();
-    int opcion = fileChooser.showOpenDialog(this);
+        JFileChooser fileChooser = new JFileChooser();
+        int opcion = fileChooser.showOpenDialog(this);
 
-    if (opcion == JFileChooser.APPROVE_OPTION) {
-        File archivo = fileChooser.getSelectedFile();
+        if (opcion == JFileChooser.APPROVE_OPTION) {
+            File archivo = fileChooser.getSelectedFile();
 
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(archivo));
+            try {
+                BufferedReader br = new BufferedReader(new FileReader(archivo));
 
-            // limpiar todo primero
-            jPanel1.removeAll();
-            jPanel1.repaint();
-            txt_variables.setText("");
-            variables.clear();
+                // limpiar todo primero
+                jPanel1.removeAll();
+                jPanel1.repaint();
+                txt_variables.setText("");
+                variables.clear();
 
-            String linea;
-            boolean leyendoVariables = false;
+                String linea;
+                boolean leyendoVariables = false;
 
-            while ((linea = br.readLine()) != null) {
+                while ((linea = br.readLine()) != null) {
 
-                if (linea.equals("VARIABLES")) {
-                    leyendoVariables = true;
-                    continue;
+                    if (linea.equals("VARIABLES")) {
+                        leyendoVariables = true;
+                        continue;
+                    }
+
+                    if (!leyendoVariables) {
+                        // FIGURAS
+                        String[] partes = linea.split(",");
+
+                        String texto = partes[0];
+                        int x = Integer.parseInt(partes[1]);
+                        int y = Integer.parseInt(partes[2]);
+
+                        JLabel figura = new JLabel(texto, JLabel.CENTER);
+                        figura.setBounds(x, y, 120, 50);
+                        figura.setOpaque(true);
+                        figura.setBackground(Color.WHITE);
+                        figura.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+
+                        // mover con drag
+                        figura.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+                            @Override
+                            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                                figura.setLocation(
+                                        figura.getX() + evt.getX(),
+                                        figura.getY() + evt.getY()
+                                );
+                            }
+                        });
+
+                        popupFigura(figura);
+                        jPanel1.add(figura);
+
+                    } else {
+                        // VARIABLES
+                        String[] partes = linea.split(",");
+                        Variable v = new Variable(partes[0], partes[1]);
+                        variables.add(v);
+                        txt_variables.append(v.toString() + "\n");
+                    }
                 }
 
-                if (!leyendoVariables) {
-                    // FIGURAS
-                    String[] partes = linea.split(",");
+                br.close();
+                jPanel1.repaint();
 
-                    String texto = partes[0];
-                    int x = Integer.parseInt(partes[1]);
-                    int y = Integer.parseInt(partes[2]);
+                JOptionPane.showMessageDialog(this, "Proyecto cargado");
 
-                    JLabel figura = new JLabel(texto, JLabel.CENTER);
-                    figura.setBounds(x, y, 120, 50);
-                    figura.setOpaque(true);
-                    figura.setBackground(Color.WHITE);
-                    figura.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
-
-                    // mover con drag
-                    figura.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-                        @Override
-                        public void mouseDragged(java.awt.event.MouseEvent evt) {
-                            figura.setLocation(
-                                figura.getX() + evt.getX(),
-                                figura.getY() + evt.getY()
-                            );
-                        }
-                    });
-
-                    popupFigura(figura);
-                    jPanel1.add(figura);
-
-                } else {
-                    // VARIABLES
-                    String[] partes = linea.split(",");
-                    Variable v = new Variable(partes[0], partes[1]);
-                    variables.add(v);
-                    txt_variables.append(v.toString() + "\n");
-                }
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Error al abrir archivo");
             }
-
-            br.close();
-            jPanel1.repaint();
-
-            JOptionPane.showMessageDialog(this, "Proyecto cargado");
-
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Error al abrir archivo");
         }
-    }
     }//GEN-LAST:event_menu_abrir_proyectoActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-           if (figuraCopiada == null) {
-        JOptionPane.showMessageDialog(this, "No hay figura copiada");
-        return;
-    }
-
-    JLabel nueva = new JLabel(textoCopiado, JLabel.CENTER);
-    nueva.setBounds(figuraCopiada.getX() + 20, figuraCopiada.getY() + 20,
-                    figuraCopiada.getWidth(), figuraCopiada.getHeight());
-    nueva.setOpaque(true);
-    nueva.setBackground(figuraCopiada.getBackground());
-    nueva.setForeground(figuraCopiada.getForeground());
-    nueva.setBorder(figuraCopiada.getBorder());
-    nueva.setFont(figuraCopiada.getFont());
-
-    nueva.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-        @Override
-        public void mouseDragged(java.awt.event.MouseEvent evt) {
-            nueva.setLocation(
-                nueva.getX() + evt.getX(),
-                nueva.getY() + evt.getY()
-            );
+        if (figuraCopiada == null) {
+            JOptionPane.showMessageDialog(this, "No hay figura copiada");
+            return;
         }
-    });
 
-    popupFigura(nueva);
+        JLabel nueva = new JLabel(textoCopiado, JLabel.CENTER);
+        nueva.setBounds(figuraCopiada.getX() + 20, figuraCopiada.getY() + 20,
+                figuraCopiada.getWidth(), figuraCopiada.getHeight());
+        nueva.setOpaque(true);
+        nueva.setBackground(figuraCopiada.getBackground());
+        nueva.setForeground(figuraCopiada.getForeground());
+        nueva.setBorder(figuraCopiada.getBorder());
+        nueva.setFont(figuraCopiada.getFont());
 
-    jPanel1.add(nueva);
-    jPanel1.repaint();
+        nueva.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            @Override
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                nueva.setLocation(
+                        nueva.getX() + evt.getX(),
+                        nueva.getY() + evt.getY()
+                );
+            }
+        });
+
+        popupFigura(nueva);
+
+        jPanel1.add(nueva);
+        jPanel1.repaint();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
         // TODO add your handling code here:
- String nombre = JOptionPane.showInputDialog("Nombre de la clase:");
+        String nombre = JOptionPane.showInputDialog("Nombre de la clase:");
 
-    if (nombre == null || nombre.trim().isEmpty()) {
-        return;
-    }
-
-    JLabel clase = new JLabel("<html><b>" + nombre + "</b><br>-----<br></html>", JLabel.CENTER);
-    clase.setBounds(50, yInicial, 180, 100);
-    clase.setOpaque(true);
-    clase.setBackground(Color.WHITE);
-    clase.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
-
-    clase.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-        @Override
-        public void mouseDragged(java.awt.event.MouseEvent evt) {
-            clase.setLocation(
-                clase.getX() + evt.getX(),
-                clase.getY() + evt.getY()
-            );
+        if (nombre == null || nombre.trim().isEmpty()) {
+            return;
         }
-    });
 
-    popupClase(clase);
+        JLabel clase = new JLabel("<html><b>" + nombre + "</b><br>-----<br></html>", JLabel.CENTER);
+        clase.setBounds(50, yInicial, 180, 100);
+        clase.setOpaque(true);
+        clase.setBackground(Color.WHITE);
+        clase.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
 
-    clase.addMouseListener(new java.awt.event.MouseAdapter() {
-        @Override
-        public void mouseClicked(java.awt.event.MouseEvent evt) {
-            if (javax.swing.SwingUtilities.isRightMouseButton(evt)) {
-                clase.getComponentPopupMenu().show(clase, evt.getX(), evt.getY());
+        clase.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            @Override
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                clase.setLocation(
+                        clase.getX() + evt.getX(),
+                        clase.getY() + evt.getY()
+                );
             }
-        }
-    });
+        });
 
-    jPanel1.add(clase);
-    jPanel1.repaint();
+        popupClase(clase);
 
-    yInicial += 110;
+        clase.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                if (javax.swing.SwingUtilities.isRightMouseButton(evt)) {
+                    clase.getComponentPopupMenu().show(clase, evt.getX(), evt.getY());
+                }
+            }
+        });
+
+        jPanel1.add(clase);
+        jPanel1.repaint();
+
+        yInicial += 110;
     }//GEN-LAST:event_jLabel3MouseClicked
 
     /**
