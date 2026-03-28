@@ -5,11 +5,19 @@
 package proyectofinal_arnoldgaldamez;
 
 import java.awt.Color;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPopupMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.*;
 
 /**
  *
@@ -40,38 +48,91 @@ public class Principal extends javax.swing.JFrame {
 
 
     private void popupFigura(JLabel figura) {
-        javax.swing.JPopupMenu menu = new javax.swing.JPopupMenu();
+    JPopupMenu menu = new JPopupMenu();
 
-        javax.swing.JMenuItem editar = new javax.swing.JMenuItem("Editar texto");
-        javax.swing.JMenuItem eliminar = new javax.swing.JMenuItem("Eliminar");
+    JMenuItem editar = new JMenuItem("Editar texto");
+    JMenuItem colorFondo = new JMenuItem("Color fondo");
+    JMenuItem colorLetra = new JMenuItem("Color letra");
+    JMenuItem tamano = new JMenuItem("Tamano letra");
+    JMenuItem eliminar = new JMenuItem("Eliminar");
 
-        editar.addActionListener(new java.awt.event.ActionListener() {
-            @Override
-            public void actionPerformed(java.awt.event.ActionEvent e) {
-                String nuevoTexto = javax.swing.JOptionPane.showInputDialog(
-                        null,
-                        "Nuevo texto:",
-                        figura.getText()
-                );
+    editar.addActionListener(new java.awt.event.ActionListener() {
+        @Override
+        public void actionPerformed(java.awt.event.ActionEvent e) {
+            String nuevo = JOptionPane.showInputDialog("Nuevo texto:");
+            if (nuevo != null && !nuevo.trim().isEmpty()) {
+                figura.setText(nuevo);
+            }
+        }
+    });
 
-                if (nuevoTexto != null && !nuevoTexto.trim().isEmpty()) {
-                    figura.setText(nuevoTexto);
+    colorFondo.addActionListener(new java.awt.event.ActionListener() {
+        @Override
+        public void actionPerformed(java.awt.event.ActionEvent e) {
+            String color = JOptionPane.showInputDialog("Color de fondo: rojo, azul, verde, amarillo, blanco");
+
+            if (color != null) {
+                if (color.equalsIgnoreCase("rojo")) {
+                    figura.setBackground(Color.RED);
+                } else if (color.equalsIgnoreCase("azul")) {
+                    figura.setBackground(Color.BLUE);
+                } else if (color.equalsIgnoreCase("verde")) {
+                    figura.setBackground(Color.GREEN);
+                } else if (color.equalsIgnoreCase("amarillo")) {
+                    figura.setBackground(Color.YELLOW);
+                } else if (color.equalsIgnoreCase("blanco")) {
+                    figura.setBackground(Color.WHITE);
                 }
             }
-        });
+        }
+    });
 
-        eliminar.addActionListener(new java.awt.event.ActionListener() {
-            @Override
-            public void actionPerformed(java.awt.event.ActionEvent e) {
-                jPanel1.remove(figura);
-                jPanel1.repaint();
+    colorLetra.addActionListener(new java.awt.event.ActionListener() {
+        @Override
+        public void actionPerformed(java.awt.event.ActionEvent e) {
+            String color = JOptionPane.showInputDialog("Color de letra: negro, rojo, azul, verde");
+
+            if (color != null) {
+                if (color.equalsIgnoreCase("negro")) {
+                    figura.setForeground(Color.BLACK);
+                } else if (color.equalsIgnoreCase("rojo")) {
+                    figura.setForeground(Color.RED);
+                } else if (color.equalsIgnoreCase("azul")) {
+                    figura.setForeground(Color.BLUE);
+                } else if (color.equalsIgnoreCase("verde")) {
+                    figura.setForeground(Color.GREEN);
+                }
             }
-        });
+        }
+    });
 
-        menu.add(editar);
-        menu.add(eliminar);
+    tamano.addActionListener(new java.awt.event.ActionListener() {
+        @Override
+        public void actionPerformed(java.awt.event.ActionEvent e) {
+            String t = JOptionPane.showInputDialog("Ingrese tamano de letra:");
 
-        figura.setComponentPopupMenu(menu);
+            if (t != null && !t.trim().isEmpty()) {
+                int nuevoTamano = Integer.parseInt(t);
+                figura.setFont(new java.awt.Font("Arial", 0, nuevoTamano));
+            }
+        }
+    });
+
+    eliminar.addActionListener(new java.awt.event.ActionListener() {
+        @Override
+        public void actionPerformed(java.awt.event.ActionEvent e) {
+            jPanel1.remove(figura);
+            jPanel1.repaint();
+        }
+    });
+
+    menu.add(editar);
+    menu.add(colorFondo);
+    menu.add(colorLetra);
+    menu.add(tamano);
+    menu.add(eliminar);
+
+    figura.setComponentPopupMenu(menu);
     }
 
 
@@ -111,7 +172,10 @@ public class Principal extends javax.swing.JFrame {
         txt_variables = new javax.swing.JTextArea();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        menu_guardar = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        menu_exportar_codigo = new javax.swing.JMenuItem();
+        menu_exportar_pdf = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -319,9 +383,35 @@ public class Principal extends javax.swing.JFrame {
         );
 
         jMenu1.setText("Archivo");
+
+        menu_guardar.setText("Guardar Codigo");
+        menu_guardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_guardarActionPerformed(evt);
+            }
+        });
+        jMenu1.add(menu_guardar);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Exportar");
+
+        menu_exportar_codigo.setText("Exportar Codigo");
+        menu_exportar_codigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_exportar_codigoActionPerformed(evt);
+            }
+        });
+        jMenu2.add(menu_exportar_codigo);
+
+        menu_exportar_pdf.setText("Exportar PDF");
+        menu_exportar_pdf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_exportar_pdfActionPerformed(evt);
+            }
+        });
+        jMenu2.add(menu_exportar_pdf);
+
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -735,6 +825,66 @@ public class Principal extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void menu_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_guardarActionPerformed
+        // TODO add your handling code here:
+         if (txt_codigo.getText().isEmpty()) {
+        JOptionPane.showMessageDialog(this, "No hay codigo para guardar");
+        return;
+    }
+
+    JFileChooser filechooser = new JFileChooser();
+    int resultado = filechooser.showSaveDialog(this);
+
+    if (resultado == JFileChooser.APPROVE_OPTION) {
+        File archivoSeleccionado = filechooser.getSelectedFile();
+
+        try {
+            FileWriter fw = new FileWriter(archivoSeleccionado + ".java");
+            BufferedWriter bw = new BufferedWriter(fw);
+
+            bw.write(txt_codigo.getText());
+
+            bw.close();
+
+            JOptionPane.showMessageDialog(this, "Archivo guardado exitosamente!");
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, "Algo salio mal.");
+        }
+    }
+    }//GEN-LAST:event_menu_guardarActionPerformed
+
+    private void menu_exportar_codigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_exportar_codigoActionPerformed
+        // TODO add your handling code here:
+          if (txt_codigo.getText().isEmpty()) {
+        JOptionPane.showMessageDialog(this, "No hay codigo para exportar");
+        return;
+    }
+
+    JFileChooser filechooser = new JFileChooser();
+    int resultado = filechooser.showSaveDialog(this);
+
+    if (resultado == JFileChooser.APPROVE_OPTION) {
+        File archivo = filechooser.getSelectedFile();
+
+        try {
+            FileWriter fw = new FileWriter(archivo + ".java");
+            BufferedWriter bw = new BufferedWriter(fw);
+
+            bw.write(txt_codigo.getText());
+
+            bw.close();
+
+            JOptionPane.showMessageDialog(this, "Archivo .java guardado");
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, "Error al guardar");
+        }
+    }
+    }//GEN-LAST:event_menu_exportar_codigoActionPerformed
+
+    private void menu_exportar_pdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_exportar_pdfActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menu_exportar_pdfActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -783,6 +933,9 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_operacion;
     private javax.swing.JLabel lbl_sout;
     private javax.swing.JLabel lbl_while;
+    private javax.swing.JMenuItem menu_exportar_codigo;
+    private javax.swing.JMenu menu_exportar_pdf;
+    private javax.swing.JMenuItem menu_guardar;
     private javax.swing.JPanel pn_izquierdo;
     private javax.swing.JPanel pn_variable;
     private javax.swing.JTextArea txt_codigo;

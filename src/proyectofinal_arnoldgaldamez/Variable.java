@@ -35,10 +35,9 @@ public class Variable {
         this.nombre = nombre;
     }
 
-    @Override
-    public String toString() {
-        return "Variable{" + "tipo=" + tipo + ", nombre=" + nombre + '}';
-    }
-    
+@Override
+public String toString() {
+    return tipo + " " + nombre;
+}
     
 }
